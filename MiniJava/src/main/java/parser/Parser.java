@@ -98,6 +98,8 @@ public class Parser {
 //                    parsStack.pop();
             }
         }
-        if (!ErrorHandler.hasError) cg.printMemory();
+        if (!ErrorHandler.hasError) {
+            cg.printMemory();
+        }
     }
 }
