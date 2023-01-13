@@ -43,22 +43,22 @@ public class ParseTable {
             }
             Rows[i] = Rows[i].substring(1, Rows[i].length() - 1);
             cols = Rows[i].split("\",\"");
-            actionTable.add(new HashMap<Token, Action>());
-            gotoTable.add(new HashMap<>());
+            getActionTable().add(new HashMap<Token, Action>());
+            getGotoTable().add(new HashMap<>());
             for (int j = 1; j < cols.length; j++) {
                 if (!cols[j].equals("")) {
                     if (cols[j].equals("acc")) {
-                        actionTable.get(actionTable.size() - 1).put(terminals.get(j), new Action(act.accept, 0));
+                        getActionTable().get(getActionTable().size() - 1).put(terminals.get(j), new Action(act.accept, 0));
                     } else if (terminals.containsKey(j)) {
 //                        try {
                         Token t = terminals.get(j);
                         Action a = new Action(cols[j].charAt(0) == 'r' ? act.reduce : act.shift, Integer.parseInt(cols[j].substring(1)));
-                        actionTable.get(actionTable.size() - 1).put(t, a);
+                        getActionTable().get(getActionTable().size() - 1).put(t, a);
 //                        }catch (StringIndexOutOfBoundsException e){
 //                            e.printStackTrace();
 //                        }
                     } else if (nonTerminals.containsKey(j)) {
-                        gotoTable.get(gotoTable.size() - 1).put(nonTerminals.get(j), Integer.parseInt(cols[j]));
+                        getGotoTable().get(getGotoTable().size() - 1).put(nonTerminals.get(j), Integer.parseInt(cols[j]));
                     } else {
                         throw new Exception();
                     }
@@ -69,7 +69,7 @@ public class ParseTable {
 
     public int getGotoTable(int currentState, NonTerminal variable) {
 //        try {
-        return gotoTable.get(currentState).get(variable);
+        return getGotoTable().get(currentState).get(variable);
 //        }catch (NullPointerException dd)
 //        {
 //            dd.printStackTrace();
@@ -79,5 +79,13 @@ public class ParseTable {
 
     public Action getActionTable(int currentState, Token terminal) {
         return actionTable.get(currentState).get(terminal);
+    }
+
+    public List<Map<Token, Action>> getActionTable() {
+        return actionTable;
+    }
+
+    public List<Map<NonTerminal, Integer>> getGotoTable() {
+        return gotoTable;
     }
 }
