@@ -61,10 +61,10 @@ public class CodeGenerator {
                 assign();
                 break;
             case 10:
-                add();
+                addOrSub(Operation.ADD);
                 break;
             case 11:
-                sub();
+                addOrSub(Operation.SUB);
                 break;
             case 12:
                 mult();
@@ -299,28 +299,26 @@ public class CodeGenerator {
         getMemory().add3AddressCode(Operation.ASSIGN, s1, s2, null);
     }
 
-    public void add() {
+    public void addOrSub(Operation operation) {
         getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), varType.Int);
         Address s2 = getSs().pop();
         Address s1 = getSs().pop();
 
         if (s1.varType != varType.Int || s2.varType != varType.Int) {
-            ErrorHandler.printError("In add two operands must be integer");
+            String msg;
+            if (operation == Operation.ADD) {
+                msg = "In add two operands must be integer";
+            } else {
+                msg = "In sub two operands must be integer";
+            }
+            ErrorHandler.printError(msg);
         }
-        getMemory().add3AddressCode(Operation.ADD, s1, s2, temp);
-        getSs().push(temp);
-    }
-
-    public void sub() {
-        getMemory().addToLastTempIndex(getMemory().getTempSize());
-        Address temp = new Address(getMemory().getTemp(), varType.Int);
-        Address s2 = getSs().pop();
-        Address s1 = getSs().pop();
-        if (s1.varType != varType.Int || s2.varType != varType.Int) {
-            ErrorHandler.printError("In sub two operands must be integer");
+        if (operation == Operation.ADD) {
+            getMemory().add3AddressCode(Operation.ADD, s1, s2, temp);
+        } else {
+            getMemory().add3AddressCode(Operation.SUB, s1, s2, temp);
         }
-        getMemory().add3AddressCode(Operation.SUB, s1, s2, temp);
         getSs().push(temp);
     }
 
