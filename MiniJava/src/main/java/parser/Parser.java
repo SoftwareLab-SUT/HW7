@@ -57,7 +57,7 @@ public class Parser {
                 Log.print(currentAction.toString());
                 //Log.print("");
 
-                switch (currentAction.action) {
+                switch (currentAction.getAction()) {
                     case shift:
                         getParsStack().push(currentAction.number);
                         lookAhead = lexicalAnalyzer.getNextToken();
