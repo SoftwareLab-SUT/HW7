@@ -181,12 +181,10 @@ public class SymbolTable {
 
         private void reset() {
             setIndex(0);
-//            index = 0;
         }
 
         private Symbol getNextParameter() {
-            setIndex(getIndex()+1);
-            return parameters.get(getOrderdParameters().get(getIndex()));
+            return parameters.get(getOrderdParameters().get(index++));
         }
 
         public List<String> getOrderdParameters() {
