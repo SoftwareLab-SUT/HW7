@@ -66,33 +66,6 @@ public class Parser {
                 parseTable = facadeResponse.parseTable;
                 cg = facadeResponse.cg;
                 finish = facadeResponse.finish;
-//                switch (currentAction.getAction()) {
-//                    case shift:
-//                        getParsStack().push(currentAction.number);
-//                        lookAhead = lexicalAnalyzer.getNextToken();
-//
-//                        break;
-//                    case reduce:
-//                        Rule rule = getRules().get(currentAction.number);
-//                        for (int i = 0; i < rule.RHS.size(); i++) {
-//                            getParsStack().pop();
-//                        }
-//
-//                        Log.print(/*"state : " +*/ getParsStack().peek() + "\t" + rule.LHS);
-////                        Log.print("LHS : "+rule.LHS);
-//                        getParsStack().push(getParseTable().getGotoTable(getParsStack().peek(), rule.LHS));
-//                        Log.print(/*"new State : " + */getParsStack().peek() + "");
-////                        Log.print("");
-//                        try {
-//                            getCg().semanticFunction(rule.semanticAction, lookAhead);
-//                        } catch (Exception e) {
-//                            Log.print("Code Genetator Error");
-//                        }
-//                        break;
-//                    case accept:
-//                        finish = true;
-//                        break;
-//                }
                 Log.print("");
             } catch (Exception ignored) {
                 ignored.printStackTrace();
