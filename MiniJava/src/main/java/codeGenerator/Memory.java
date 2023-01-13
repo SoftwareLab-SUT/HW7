@@ -21,18 +21,30 @@ public class Memory {
         lastDataAddress = getStratDataMemoryAddress();
     }
 
+    public void addToLastTempIndex(int value) {
+        lastTempIndex += value;
+    }
+
+    public void addToLastDataAddress(int value) {
+        lastDataAddress += value;
+    }
+
+    public void addToMemory() {
+        getCodeBlock().add(new _3AddressCode());
+    }
+
     public int getTemp() {
-        lastTempIndex += getTempSize();
+//        lastTempIndex += getTempSize();
         return getLastTempIndex() - getTempSize();
     }
 
     public int getDateAddress() {
-        lastDataAddress += getDataSize();
+//      lastDataAddress += getDataSize();
         return getLastDataAddress() - getDataSize();
     }
 
     public int saveMemory() {
-        getCodeBlock().add(new _3AddressCode());
+//        getCodeBlock().add(new _3AddressCode());
         return getCodeBlock().size() - 1;
     }
 

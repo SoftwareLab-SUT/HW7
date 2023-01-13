@@ -244,6 +244,7 @@ public class CodeGenerator {
                 t = varType.Bool;
                 break;
         }
+        getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), t);
         getSs().push(temp);
         getMemory().add3AddressCode(Operation.ASSIGN, new Address(temp.num, varType.Address, TypeAddress.Imidiate), new Address(getSymbolTable().getMethodReturnAddress(className, methodName), varType.Address), null);
@@ -299,6 +300,7 @@ public class CodeGenerator {
     }
 
     public void add() {
+        getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), varType.Int);
         Address s2 = getSs().pop();
         Address s1 = getSs().pop();
@@ -311,6 +313,7 @@ public class CodeGenerator {
     }
 
     public void sub() {
+        getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), varType.Int);
         Address s2 = getSs().pop();
         Address s1 = getSs().pop();
@@ -322,6 +325,7 @@ public class CodeGenerator {
     }
 
     public void mult() {
+        getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), varType.Int);
         Address s2 = getSs().pop();
         Address s1 = getSs().pop();
@@ -338,6 +342,7 @@ public class CodeGenerator {
     }
 
     public void save() {
+        getMemory().addToMemory();
         getSs().push(new Address(getMemory().saveMemory(), varType.Address));
     }
 
@@ -347,6 +352,7 @@ public class CodeGenerator {
     }
 
     public void jpf_save() {
+        getMemory().addToMemory();
         Address save = new Address(getMemory().saveMemory(), varType.Address);
         getMemory().add3AddressCode(getSs().pop().num, Operation.JPF, getSs().pop(), new Address(getMemory().getCurrentCodeBlockAddress(), varType.Address), null);
         getSs().push(save);
@@ -361,6 +367,7 @@ public class CodeGenerator {
     }
 
     public void equal() {
+        getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), varType.Bool);
         Address s2 = getSs().pop();
         Address s1 = getSs().pop();
@@ -372,6 +379,7 @@ public class CodeGenerator {
     }
 
     public void less_than() {
+        getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), varType.Bool);
         Address s2 = getSs().pop();
         Address s1 = getSs().pop();
@@ -383,6 +391,7 @@ public class CodeGenerator {
     }
 
     public void and() {
+        getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), varType.Bool);
         Address s2 = getSs().pop();
         Address s1 = getSs().pop();
@@ -394,6 +403,7 @@ public class CodeGenerator {
     }
 
     public void not() {
+        getMemory().addToLastTempIndex(getMemory().getTempSize());
         Address temp = new Address(getMemory().getTemp(), varType.Bool);
         Address s2 = getSs().pop();
         Address s1 = getSs().pop();
